@@ -7,33 +7,27 @@ import (
 
 func main() {
 
-	// Vérifie qu'on a bien donné 2 fichiers en argument
+	// Vérifie qu'on a bien donné deux fichiers en argument
 	if len(os.Args) != 3 {
 		fmt.Println("Utilisation : go run . fichier_entree fichier_sortie")
 		return
 	}
 
-	// Récupère le nom du fichier d'entrée
+	// Récupère les noms des fichiers
 	fichierEntree := os.Args[1]
-
-	// Récupère le nom du fichier de sortie
 	fichierSortie := os.Args[2]
 
-	// Lit le contenu du fichier d'entrée
-	contenu, err := os.ReadFile(fichierEntree)
-
-	// Vérifie s'il y a eu une erreur
+	// Lit le fichier d'entrée
+	contenu, err := LireFichier(fichierEntree)
 	if err != nil {
-		fmt.Println("Erreur lors de la lecture du fichier :", err)
+		fmt.Println("Erreur lors de la lecture :", err)
 		return
 	}
 
 	// Écrit le contenu dans le fichier de sortie
-	err = os.WriteFile(fichierSortie, contenu, 0644)
-
-	// Vérifie s'il y a eu une erreur lors de l'écriture
+	err = EcrireFichier(fichierSortie, contenu)
 	if err != nil {
-		fmt.Println("Erreur lors de l'écriture du fichier :", err)
+		fmt.Println(err)
 		return
 	}
 }
