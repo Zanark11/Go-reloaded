@@ -1,3 +1,4 @@
+
 package main
 
 import (
@@ -7,7 +8,7 @@ import (
 
 func main() {
 
-	// Vérifie qu'on a bien donné deux fichiers en argument
+	// Vérifie qu'on a bien deux fichiers en argument
 	if len(os.Args) != 3 {
 		fmt.Println("Utilisation : go run . fichier_entree fichier_sortie")
 		return
@@ -24,8 +25,25 @@ func main() {
 		return
 	}
 
-	// Écrit le contenu dans le fichier de sortie
-	err = EcrireFichier(fichierSortie, contenu)
+	// Transforme le contenu en texte
+	texte := string(contenu)
+
+	// Traite les nombres hexadécimaux
+	texte, err = TraiterHex(texte)
+	if err != nil {
+		fmt.Println("Erreur lors de la conversion hexadécimale :", err)
+		return
+	}
+
+	// Traite les nombres binaires
+	texte, err = TraiterBin(texte)
+	if err != nil {
+		fmt.Println("Erreur lors de la conversion binaire :", err)
+		return
+	}
+
+	// Écrit le texte transformé
+	err = EcrireFichier(fichierSortie, []byte(texte))
 	if err != nil {
 		fmt.Println(err)
 		return
