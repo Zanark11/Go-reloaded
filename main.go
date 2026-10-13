@@ -41,10 +41,17 @@ func main() {
 		return
 	}
 
+	// On traite les changements de casse.
+	texte = TraiterCasse(texte)
+
+	// On corrige les espaces autour de la ponctuation.
+	texte = TraiterPonctuation(texte)
+
 	// Écrit le texte transformé
 	err = EcrireFichier(fichierSortie, []byte(texte))
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
 }

@@ -16,35 +16,35 @@ func ConvertirBin(nombre string) (string, error) {
 }
 
 func TraiterBin(texte string) (string, error) {
+	lignes := strings.Split(texte, "\n")
+	var resultatLignes []string
 
-	mots := strings.Fields(texte)
+	for _, ligne := range lignes {
+		mots := strings.Fields(ligne)
+		var resultat []string
 
-	var resultat []string
+		for i := 0; i < len(mots); i++ {
+			if i+1 < len(mots) && strings.HasPrefix(mots[i+1], "(bin)") {
+				nombre, err := ConvertirBin(mots[i])
+				if err != nil {
+					return "", err
+				}
 
-	for i := 0; i < len(mots); i++ {
+				resultat = append(resultat, nombre)
 
-		if i+1 < len(mots) && strings.HasPrefix(mots[i+1], "(bin)") {
+				ponctuation := strings.TrimPrefix(mots[i+1], "(bin)")
+				if ponctuation != "" {
+					resultat[len(resultat)-1] += ponctuation
+				}
 
-			nombre, err := ConvertirBin(mots[i])
-			if err != nil {
-				return "", err
+				i++
+			} else {
+				resultat = append(resultat, mots[i])
 			}
-
-			resultat = append(resultat, nombre)
-
-			ponctuation := strings.TrimPrefix(mots[i+1], "(bin)")
-			if ponctuation != "" {
-				resultat[len(resultat)-1] += ponctuation
-			}
-
-			// ici on saute le marqueur (bin)
-			i++
-		} else {
-			// je conserve le mot tel quel
-			resultat = append(resultat, mots[i])
 		}
+
+		resultatLignes = append(resultatLignes, strings.Join(resultat, " "))
 	}
 
-	// je reconstitue le texte
-	return strings.Join(resultat, " "), nil
+	return strings.Join(resultatLignes, "\n"), nil
 }
