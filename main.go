@@ -47,6 +47,12 @@ func main() {
 	// On corrige les espaces autour de la ponctuation.
 	texte = TraiterPonctuation(texte)
 
+	// On corrige les espaces à l'intérieur des apostrophes.
+	texte = TraiterApostrophes(texte)
+
+	// On corrige les articles "a" qui doivent devenir "an".
+	texte = TraiterArticles(texte)
+
 	// Écrit le texte transformé
 	err = EcrireFichier(fichierSortie, []byte(texte))
 	if err != nil {
