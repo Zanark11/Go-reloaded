@@ -81,10 +81,6 @@ Pour afficher le résultat :
 cat result.txt
 ```
 
-## Tests
-
-Le projet peut être testé directement avec des fichiers texte.
-
 ### Test du programme
 
 ```bash
@@ -95,22 +91,6 @@ Puis :
 
 ```bash
 cat result.txt
-```
-
-### Vérification de la compilation
-
-```bash
-go build ./...
-```
-
-### Tests unitaires
-
-Des tests unitaires peuvent être ajoutés avec le système de tests intégré à Go.
-
-La commande utilisée pour lancer les tests est :
-
-```bash
-go test ./...
 ```
 
 ## Architecture du projet
